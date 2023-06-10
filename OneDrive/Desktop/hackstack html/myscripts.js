@@ -1,4 +1,5 @@
 const apiKey = '6169143918b84ec52e85eb33a14616f3'; 
+let initalContent = [];
 const fetchPopularMovies = async () => {
   try {
     const apiUrl = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
@@ -13,13 +14,13 @@ const fetchPopularMovies = async () => {
     async function getMovies(url) {
       const resp = await fetch(url);
       const respData = await resp.json();
-      console.log(respData);
+      // console.log(respData);
       showMovies(respData.results);
       }
 
       function showMovies(movies) {
         // clear main
-        main.innerHTML = "";
+   //     main.innerHTML = "";
         movie.forEach((movie) => {
         const { poster_path, title, vote_average, overview } = movie;
         const movieEl = document.createElement("div");
@@ -44,11 +45,12 @@ const fetchPopularMovies = async () => {
         });
         }
 
-    const arrTitle=[];
+
+     const arrTitle=[];
      for (let x in movies)
      {
       arrTitle[x]=movies[x].original_title;
-       console.log(arrTitle[x]);
+       //console.log(arrTitle[x]);
        const flexitem1=document.getElementsByClassName("flexitem1")[x];
        const heading = document.createElement("h1");
        heading.innerHTML=arrTitle[x];
@@ -60,7 +62,7 @@ const fetchPopularMovies = async () => {
      for(let x in movies)
      {
       arrRating[x]=movies[x].vote_average;
-      console.log(arrRating[x]);
+      //console.log(arrRating[x]);
       const flexitem1=document.getElementsByClassName("flexitem1")[x];
        const heading2 = document.createElement("h3");
        heading2.innerHTML=arrRating[x];
@@ -72,37 +74,68 @@ const fetchPopularMovies = async () => {
      for(let x in movies)
      {
       arrPoster[x]=movies[x].poster_path;
-      console.log(arrPoster[x]);
+      //console.log(arrPoster[x]);
       const image=document.getElementsByClassName('flexitem1')[x];
       const poster=document.createElement('img');
 
       poster.src=IMG_URL+arrPoster[x];
       image.appendChild(poster);
      }
+
+     initalContent = [...document.getElementsByClassName("flexitem1")]
+     console.log(initalContent)
+   
+
+     const arrOverview=[];
+     for(let x in movies)
+     {
+      arrOverview[x]=movies[x].overview;
+      //console.log(arrOverview[x]);
+      const flexitem1=document.getElementsByClassName("flexitem1")[x];
+      const divtag=document.createElement("div");
+      divtag.className="overview";
+      const heading3= document.createElement("h1");
+      heading3.className="overview1";
+      heading3.innerHTML="Overview";
+       const heading2 = document.createElement("h3");
+       heading2.className="overview2";
+       heading2.innerHTML=arrOverview[x];
+       divtag.appendChild(heading3);
+       divtag.appendChild(heading2);
+       flexitem1.appendChild(divtag);
+
+
+     }
      
-    
-
-form.addEventListener("submit", function(event){event.preventDefault();
-const search = document.getElementById("searchbar");
-const searchTerm = search.value;
-if (searchTerm) {
-getMovies(SEARCHAPI + searchTerm);
-search.value = "";
-}})
-;
-
-
-
-
-
-
-
-
     
   } catch (error) {
     console.log('Error:', error);
   }
 };
+
+function searchMovie(){
+  let value = event.target.value;
+  let movieGrid = document.getElementById("movieGrid")
+//  movieGrid.innerHTML = ""
+ 
+  if (value){
+  //    const allMovies = document.getElementsByClassName('flexitem1')
+      console.log("initCont", initalContent)
+   
+      movieGrid.innerHTML = "";
+      for (let movieDiv of initalContent){
+          if (movieDiv.innerText.split("\n")[0].toLowerCase().indexOf(value.toLowerCase()) != -1){
+       //       console.log(movieDiv)
+              movieGrid.appendChild(movieDiv)
+          }
+      }
+  }
+  else{
+      for (let item of initalContent){
+          movieGrid.appendChild(item)
+      }
+  }       
+  }
 
 fetchPopularMovies();
     

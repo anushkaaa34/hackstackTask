@@ -7,12 +7,15 @@
     border-radius: 10px;
     margin-left: auto;
 }
+
+
 .image{
     height:48px;
     width:48px;
     align-content: space-between;
     margin-top: 10px;
     border-radius: 6px;
+    margin-left: 10px;
 }
 
 .heading{
@@ -281,7 +284,34 @@
     box-shadow: 0px 2px 10px 0px rgba(14, 13, 13, 0.904);
     -ms-interpolation-mode: bicubic;
   }
+ 
+  .overview {
+    background-image: linear-gradient(#bdc3c7,#2c3e50);
+    padding: 2rem;
+    position: absolute;
+    max-height: 100%;
+    overflow: scroll;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transform: translateY(101%);
+    transition: transform 0.3s ease-in;
+    }
+    .overview1 {
+        margin-top: 0;
+        color:#f7f7f8;
+    }
 
+    .overview2{
+        font-weight:lighter;
+        color:#e3f6fa;
+    }
+
+
+    .flexitem1:hover .overview{
+        transform: translateY(0);
+    }
+    
  
 
 
